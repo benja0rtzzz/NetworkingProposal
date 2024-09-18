@@ -1,6 +1,6 @@
 # Network Infrastructure Design and Implementation for Campus Residences
 
-This project showcases the proposal of a network infrastructure for the "Tecnológico de Monterrey on Campus Residences", focusing on transitioning from analog to IP security cameras. The project also ensures reliable connectivity for a large number of devices across multiple floors, including IP cameras, access points, and NFC readers.
+This project showcases the proposal of a network infrastructure for the "Tecnológico de Monterrey" on Campus Residences, focusing on transitioning from analog to IP security cameras. The project also ensures reliable connectivity for a large number of devices across multiple floors, including IP cameras, access points, and NFC readers.
 
 ## Project Overview
 
