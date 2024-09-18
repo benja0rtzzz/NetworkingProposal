@@ -1,0 +1,201 @@
+hostname R1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 4 GtdzIA0v4MljJ/H3e2KTLG3hB8hG5eZA/UuXL8layE.
+!
+no aaa new-model
+!
+no ipv6 cef
+ip source-route
+ip cef
+!
+!
+!
+ip dhcp excluded-address 172.11.128.1 172.11.128.90
+ip dhcp excluded-address 172.11.143.254
+ip dhcp excluded-address 172.11.147.94
+ip dhcp excluded-address 172.11.146.254
+ip dhcp excluded-address 172.11.145.254
+ip dhcp excluded-address 172.11.147.62
+!
+ip dhcp pool LAN-POOL-TEC
+ network 172.11.128.0 255.255.240.0
+ default-router 172.11.147.94
+ dns-server 8.8.8.8
+ domain-name google.com
+ lease infinite
+!
+ip dhcp pool LAN-POOLTELEFONOS
+ network 172.11.147.64 255.255.255.224
+ default-router 172.11.147.94
+ dns-server 8.8.8.8
+ domain-name google.com
+!
+ip dhcp pool LAN-POOL-DETECCION
+ network 172.11.144.0 255.255.254.0
+ default-router 172.11.145.254
+ dns-server 8.8.8.8
+ domain-name google.com
+!
+ip dhcp pool LAN-POOL-CCTV
+ network 172.11.147.0 255.255.255.192
+ default-router 172.11.147.62
+ dns-server 8.8.8.8
+ domain-name google.com
+!
+ip dhcp pool LAN-POOL-ACCESO
+ network 172.11.146.0 255.255.255.0
+ default-router 172.11.146.254
+ dns-server 8.8.8.8
+ domain-name google.com
+!
+!
+no ip domain lookup
+ip domain name cisco.com
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki token default removal timeout 0
+!
+!
+voice-card 0
+!
+!
+!
+!
+!
+!
+!
+license udi pid CISCO2901/K9 sn FTX161687X4
+license boot module c2900 technology-package uck9
+hw-module pvdm 0/0
+!
+!
+!
+username cisco privilege 15 secret 4 tnhtc92DXBhelxjYk8LWJrPV36S2i4ntXrpb4RFmfqY
+!
+redundancy
+!
+!
+ip ssh version 2
+!
+!
+!
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ description admin
+ ip address 172.11.147.129 255.255.255.224
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.10
+ description telefono
+ encapsulation dot1Q 10
+ ip address 172.11.147.94 255.255.255.224
+!
+interface GigabitEthernet0/0.20
+ description cctv
+ encapsulation dot1Q 20
+ ip address 172.11.147.62 255.255.255.192
+!
+interface GigabitEthernet0/0.30
+ description deteccion
+ encapsulation dot1Q 30
+ ip address 172.11.145.254 255.255.254.0
+!
+interface GigabitEthernet0/0.40
+ description acceso
+ encapsulation dot1Q 40
+ ip address 172.11.146.254 255.255.255.0
+!
+interface GigabitEthernet0/0.50
+ description tec
+ encapsulation dot1Q 50
+ ip address 172.11.143.254 255.255.240.0
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface GigabitEthernet0/0.199
+ description admin
+ encapsulation dot1Q 199
+ ip address 172.11.147.126 255.255.255.224
+!
+interface GigabitEthernet0/1
+ ip address dhcp
+ ip nat outside
+ ip virtual-reassembly in
+ duplex auto
+ speed auto
+!
+interface Serial0/0/0
+ no ip address
+ shutdown
+!
+interface Serial0/0/1
+ no ip address
+ shutdown
+ clock rate 2000000
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source list 1 interface GigabitEthernet0/1 overload
+!
+access-list 1 remark nat
+access-list 1 permit 172.11.128.0 0.0.15.255
+!
+!
+!
+control-plane
+!
+!
+!
+!
+mgcp profile default
+!
+!
+!
+!
+!
+gatekeeper
+ shutdown
+!
+!
+banner motd ^C
+Router Equipo 2
+^C
+!
+line con 0
+ password 2012
+ login
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport input all
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line vty 0 4
+ password 2012
+ login local
+ transport input telnet ssh
+line vty 5 15
+ password 2012
+ login local
+ transport input telnet ssh
+!
+scheduler allocate 20000 1000
+end

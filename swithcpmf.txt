@@ -1,0 +1,155 @@
+SW1(config-line)#sh run
+                  ^
+% Invalid input detected at '^' marker.
+
+SW1(config-line)#end
+SW1#sh r
+Mar 11 16:09:40.695: %SYS-5-CONFIG_I: Configured from console by consoleun
+Building configuration...
+
+Current configuration : 2054 bytes
+!
+! Last configuration change at 16:09:40 UTC Mon Mar 11 2024
+!
+version 15.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname SW1
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$EXU4$KBA.WNx2TOIq/TdlLZV8I.
+!
+username cisco privilege 15 secret 5 $1$8U8w$m2B7IO21tTjXeaC211kg01
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip domain-name cisco.com
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+!
+!
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/1
+ switchport access vlan 50
+ switchport mode access
+!
+interface GigabitEthernet0/2
+ switchport mode trunk
+!
+interface GigabitEthernet0/3
+ switchport mode access
+!
+interface GigabitEthernet0/4
+ switchport mode access
+!
+interface GigabitEthernet0/5
+ switchport mode access
+!
+interface GigabitEthernet0/6
+ switchport mode access
+!
+interface GigabitEthernet0/7
+ switchport mode access
+!
+interface GigabitEthernet0/8
+ switchport mode access
+!
+interface GigabitEthernet0/9
+ switchport mode access
+!
+interface GigabitEthernet0/10
+ switchport mode access
+!
+interface GigabitEthernet0/11
+ switchport mode access
+!
+interface GigabitEthernet0/12
+ switchport access vlan 50
+ switchport mode access
+!
+interface GigabitEthernet0/13
+ switchport mode access
+!
+interface GigabitEthernet0/14
+ switchport mode access
+!
+interface GigabitEthernet0/15
+ switchport mode access
+!
+interface GigabitEthernet0/16
+ switchport mode access
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan10
+ no ip address
+!
+interface Vlan20
+ no ip address
+!
+interface Vlan50
+ no ip address
+!
+interface Vlan199
+ ip address 172.11.147.97 255.255.255.224
+!
+ip forward-protocol nd
+!
+ip http server
+ip http secure-server
+ip ssh version 2
+!
+!
+!
+banner motd ^C
+Swit^C
+!
+line con 0
+ password 2012
+ login
+line vty 0 4
+ password 2012
+ login local
+ transport input telnet ssh
+line vty 5 15
+ password 2012
+ login local
+ transport input telnet ssh
+!
+!
+end
